@@ -3,6 +3,7 @@ import CONSTANTS from "../constants";
 import {SignUp,SignIn} from '../interface/user'
 import utils from'../utils'
 import {User} from '../schema'
+import {denCrypt} from '../utils/crypto'
 
 export const signUp = async (req: Request,res: Response)=>{
     try {
@@ -13,10 +14,13 @@ export const signUp = async (req: Request,res: Response)=>{
         return utils.sendResponse(res,e.code,e.message)
     }
 }
-export const signIn = (req: Request,res: Response)=>{
+export const signIn = async (req: Request,res: Response)=>{
     try {
         let reqData:SignIn = req.body
-        return utils.sendResponse(res,CONSTANTS.CODE.SUCCESS,CONSTANTS.RESPONSE_MESSAGES.SUCCESS.SIGN_UP,reqData)
+        let result = await User.findOne({email:reqData.email},{password:1}).lean()
+        if(!result || denCrypt(result.password) != reqData.password)
+            return utils.sendResponse(res,CONSTANTS.CODE.NOT_FOUND,CONSTANTS.RESPONSE_MESSAGES.FAIL.WRONG_EMAIL_OR_PASSWORD)
+        return utils.sendResponse(res,CONSTANTS.CODE.SUCCESS,CONSTANTS.RESPONSE_MESSAGES.SUCCESS.LOG_IN)
     }catch (e:any) {
         return utils.sendResponse(res,e.code,e.message)
     }

@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "@types/crypto-js": "^4.1.1",
     "@types/express": "^4.17.17",
     "@types/node": "^18.14.0",
     "concurrently": "^7.6.0",
@@ -14,6 +15,7 @@
   },
   "dependencies": {
     "@types/mongoose": "^5.11.97",
+    "crypto-js": "^4.1.1",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "mongoose": "^6.9.2"
