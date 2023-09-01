@@ -6,7 +6,8 @@
     "node_modules"
   ],
   "watch": [
-    "src/**/*"
+    "src/**/*",
+    ".env"
   ],
   "ext": "ts",
   "exec": "ts-node ./src/server/index.ts"

@@ -1,30 +1,35 @@
-import {Response} from "express";
-import CONSTANTS from '../constants'
+import { Response } from 'express';
+import CONSTANTS from '../constants';
 /*const config = require("../config");
 const moment = require("moment");
 const { campaigns } = require("../models");
 const fs = require("node:fs/promises");*/
 
-export const sendResponse = (res:Response, code:number, message:string|null = null, data:object|null = null) => {
-    res
-        .status(getHTTPStatusCode(code))
-        .json({ status: getStatusTrueFalse(code), message, data, code });
+export const sendResponse = (
+  res: Response,
+  code: number,
+  message: string | null = null,
+  data: object | null = null
+) => {
+  res
+    .status(getHTTPStatusCode(code))
+    .json({ status: getStatusTrueFalse(code), message, data, code });
 };
 
-const getHTTPStatusCode = (code:number) => {
-    if (code) {
-        return code;
-    } else {
-        return CONSTANTS.CODE.SERVER_ERROR;
-    }
+const getHTTPStatusCode = (code: number) => {
+  if (code) {
+    return code;
+  } else {
+    return CONSTANTS.CODE.SERVER_ERROR;
+  }
 };
 
-const getStatusTrueFalse = (code:number) => {
-    return code == CONSTANTS.CODE.SUCCESS;
+const getStatusTrueFalse = (code: number) => {
+  return code == CONSTANTS.CODE.SUCCESS;
 };
 
-const consoleLog = (message:string|null, data: object|null) => {
-    console.log(message, " ==> ", data || "N/A");
+const consoleLog = (message: string | null, data: object | null) => {
+  console.log(message, ' ==> ', data || 'N/A');
 };
 
 /*const extractForAuthTable = (data) => ({
@@ -378,9 +383,9 @@ const getObjectFromList = (data, fieldName, condMatch) => {
     return data[foundIndex];
 };*/
 
-export default  {
-    sendResponse,
-    consoleLog,
+export default {
+  sendResponse,
+  consoleLog
   /*  extractForAuthTable,
     extractJWTokenData,
     getNHoursFutureUnixTime,
