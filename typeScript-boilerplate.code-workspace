@@ -1,0 +1,28 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../boilerplate-backend-node-graphql-mongodb-master"
+		},
+		{
+			"path": "../typeScript-practice"
+		},
+		{
+			"path": "../typeorm-express-typescript-main"
+		},
+		{
+			"path": "../typescript-express-starter-master"
+		},
+		{
+			"path": "../npm-package-practice"
+		},
+		{
+			"path": "../test-npm-package"
+		},
+		{
+			"path": "../test-typeScript-project-1"
+		}
+	]
+}
