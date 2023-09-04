@@ -44,5 +44,8 @@ export default {
 
   AUDIENCE_ID: <string>process.env.AUDIENCE_ID,
   MAILCHIMP_API_KEY: <string>process.env.MAILCHIMP_API_KEY,
-  MAILCHIMP_SERVER: <string>process.env.MAILCHIMP_SERVER
+  MAILCHIMP_SERVER: <string>process.env.MAILCHIMP_SERVER,
+  
+  LOG_FORMAT: <string>process.env.LOG_FORMAT,
+  LOG_DIR: <string>process.env.LOG_DIR,
 };
