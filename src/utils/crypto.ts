@@ -1,5 +1,5 @@
-import * as CryptoJS from 'crypto-js';
 import  config  from '../config';
+import * as CryptoJS from 'crypto-js';
 
 export const enCrypt = (data: string) => {
   // Encrypt
