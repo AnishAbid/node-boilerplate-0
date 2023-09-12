@@ -1,5 +1,6 @@
 import { Response } from 'express';
 import CONSTANTS from '../constants';
+import {logger} from '@utils/logger'
 /*const config = require("../config");
 const moment = require("moment");
 const { campaigns } = require("../models");
@@ -11,17 +12,25 @@ export const sendResponse = (
   message: string | null = null,
   data: object | null = null
 ) => {
+    if(getHTTPStatusCode(code)==500)
+        logger.error(`[${'Error:'}] ${message} >> StatusCode:: ${code}, Data:: ${data}`);
   res
     .status(getHTTPStatusCode(code))
     .json({ status: getStatusTrueFalse(code), message, data, code });
 };
 
 const getHTTPStatusCode = (code: number) => {
-  if (code) {
-    return code;
-  } else {
-    return CONSTANTS.CODE.SERVER_ERROR;
-  }
+    if (
+        code == CONSTANTS.CODE.SUCCESS ||
+        code == CONSTANTS.CODE.NOT_FOUND ||
+        code == CONSTANTS.CODE.UNAUTHORIZED ||
+        code == CONSTANTS.CODE.UNVERIFIED ||
+        code == CONSTANTS.CODE.BAD_REQUEST
+      ) {
+        return code;
+      } else {
+        return CONSTANTS.CODE.SERVER_ERROR;
+      }
 };
 
 const getStatusTrueFalse = (code: number) => {
