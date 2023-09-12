@@ -1,23 +1,33 @@
-import { Response } from 'express';
+import { Response, NextFunction } from 'express';
 import CONSTANTS from '../constants';
 import {logger} from '@utils/logger'
+import {HttpException} from '@interfaces/http'
 /*const config = require("../config");
 const moment = require("moment");
 const { campaigns } = require("../models");
 const fs = require("node:fs/promises");*/
 
-export const sendResponse = (
+const sendResponse = (
   res: Response,
   code: number,
   message: string | null = null,
   data: object | null = null
 ) => {
-    if(getHTTPStatusCode(code)==500)
-        logger.error(`[${'Error:'}] ${message} >> StatusCode:: ${code}, Data:: ${data}`);
   res
     .status(getHTTPStatusCode(code))
     .json({ status: getStatusTrueFalse(code), message, data, code });
 };
+const requestError = (error: HttpException, req: Request, res: Response, next: NextFunction) => {
+    try {
+      const status: number = error.status || 500;
+      const message: string = error.message || 'Something went wrong';
+  
+      logger.error(`[${req.method}] ${req.url} >> StatusCode:: ${status}, Message:: ${message}`);
+      res.status(status).json({ message });
+    } catch (error) {
+      next(error);
+    }
+  };
 
 const getHTTPStatusCode = (code: number) => {
     if (
@@ -394,7 +404,8 @@ const getObjectFromList = (data, fieldName, condMatch) => {
 
 export default {
   sendResponse,
-  consoleLog
+  consoleLog,
+  requestError
   /*  extractForAuthTable,
     extractJWTokenData,
     getNHoursFutureUnixTime,
